@@ -43,7 +43,7 @@ mixin NetworkMixin {
       if (queryParameter == null) {
         queryParameter = {};
       }
-      queryParameter["apiKey"] = apiKey;
+      queryParameter["api_key"] = apiKey;
     }
     return queryParameter;
   }
