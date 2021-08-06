@@ -47,3 +47,4 @@ app.*.map.json
 /android/
 /ios/
 /lib/**/*.g.dart
+.env
