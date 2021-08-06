@@ -16,8 +16,13 @@ Future<IResponse> computeParserMoviesJson(Map<String, dynamic> input) async {
 @LazySingleton(as: MovieRepository)
 class MovieRepositoryImpl with NetworkMixin implements MovieRepository {
   @override
-  Future<IResponse> getAll({String path = ""}) async {
-    final response = (await get(endpoint: path));
+  Future<IResponse> getAll({String path = "", int page = 1}) async {
+    final response = await get(
+      endpoint: path,
+      query: {
+        "page": page,
+      },
+    );
     if (response.statusCode != 200) {
       return ErrorResponse(error: "error to get movie");
     }
