@@ -4,9 +4,9 @@ import 'package:flutter_config/flutter_config.dart';
 mixin NetworkMixin {
   late Dio _dio = Dio();
 
-  final String server = FlutterConfig.get('API_URL');
+  String get server => FlutterConfig.get('API_URL');
 
-  final String apiKey = FlutterConfig.get('API_KEY');
+  String get apiKey => FlutterConfig.get('API_KEY');
 
   Future<Response<Map<String, dynamic>>> get({
     required String endpoint,
