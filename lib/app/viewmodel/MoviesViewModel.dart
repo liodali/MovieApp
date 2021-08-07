@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/app/common/locator.dart';
-import 'package:movie_app/core/interactors/movies_use_case.dart';
-import 'package:movie_app/domain/models/movie.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:synchronized/synchronized.dart';
 
+import '../../core/interactors/movies_use_case.dart';
+import '../../domain/common/utilities.dart';
+import '../../domain/models/movie.dart';
 import '../../domain/models/response.dart';
+import '../common/locator.dart';
 
 class MoviesViewModel extends ChangeNotifier {
+  String _typeMovieSelected = categoriesMovies.values.first;
   bool _isLoading = false;
   int maxPage = -1;
   int page = 1;
   IResponse? _moviesResponse;
   List<Movie> _moviesCache = [];
-  final _moviesPublisher = PublishSubject<List<Movie>>();
+  PublishSubject<List<Movie>> _moviesPublisher = PublishSubject<List<Movie>>();
   final _lock = Lock();
+
+  String get typeMovieSelected => _typeMovieSelected;
 
   bool get isLoading => _isLoading;
 
@@ -24,17 +28,32 @@ class MoviesViewModel extends ChangeNotifier {
 
   MoviesViewModel();
 
-  Future<void> initMovies(String types, {bool restart = false}) async {
-    await _lock.synchronized(() async => await _fetchMovies(types, 1, () {
-          page++;
-        }));
+  void setTypeMovieSelected(String newTypesSelected) {
+    _typeMovieSelected = newTypesSelected;
+    notifyListeners();
   }
 
-  Future<void> getMovies(String types, {bool restart = false}) async {
+  Future<void> initMovies({bool restart = false}) async {
+    await _lock
+        .synchronized(() async =>
+    await _fetchMovies(_typeMovieSelected, 1, () {
+      page++;
+    }));
+  }
+
+  Future<void> getMovies({bool restart = false}) async {
+    if (restart) {
+      page = 1;
+      maxPage = -1;
+      _moviesCache.clear();
+      //_moviesPublisher = PublishSubject<List<Movie>>();
+    }
     if ((page < maxPage && maxPage != -1) || !_isLoading) {
       _isLoading = true;
       notifyListeners();
-      await _lock.synchronized(() async => await _fetchMovies(types, page, () {
+      await _lock.synchronized(
+              () async =>
+          await _fetchMovies(_typeMovieSelected, page, () {
             page++;
           }));
       _isLoading = false;
@@ -42,10 +61,10 @@ class MoviesViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> _fetchMovies(
-      String path, int page, Function? actionAfterGetMove) async {
+  Future<void> _fetchMovies(String path, int page,
+      Function? actionAfterGetMove) async {
     final result = await getIt<MoviesListUseCase>().invoke({
-      "path": path,
+      "path": "/$path",
       "page": page,
     });
     if (result is MoviesResponse) {

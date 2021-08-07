@@ -17,7 +17,7 @@ class ListMovies extends HookWidget {
   Widget build(BuildContext context) {
     final viewModel = context.read<MoviesViewModel>();
     useEffect(() {
-      viewModel.initMovies("/popular");
+      viewModel.initMovies();
     });
     return CustomScrollView(
       primary: false,
@@ -27,6 +27,7 @@ class ListMovies extends HookWidget {
         ),
         StreamComponent<List<Movie>>(
           stream: viewModel.stream!,
+          key: Key(viewModel.typeMovieSelected),
           loading: SliverFillRemaining(
             fillOverscroll: false,
             hasScrollBody: false,

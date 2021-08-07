@@ -1,7 +1,6 @@
-const List<String> categoriesMovies = [
-  "Top Rated",
-  "Popular",
-  "Now Playing",
-  "UpComing",
-  "Recommendation",
-];
+const Map<String,String> categoriesMovies = {
+  "Top Rated":"top_rated",
+  "Popular":"popular",
+  "Now Playing":"now_playing",
+  "UpComing":"upcoming",
+};

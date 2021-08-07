@@ -16,12 +16,14 @@ class MyAppLocalizations {
       'loading_text': 'Loading ...',
       'error_loading_image': 'Error to Get Image',
       'more_movies': 'more movies ...',
+      'search_hint': 'search',
     },
     'fr': {
       'title_app': 'Movie TMDB',
       'loading_text': 'Chargement ...',
       'error_loading_image': 'Impossible de télécharger cet image',
       'more_movies': 'plus de films ...',
+      'search_hint': 'recherche',
     },
   };
 
@@ -35,6 +37,9 @@ class MyAppLocalizations {
 
   String get moreMovies =>
       _localizedValues[locale.languageCode]!['more_movies']!;
+
+  String get searchHint =>
+      _localizedValues[locale.languageCode]!['search_hint']!;
 }
 
 class AppLocalizationsDelegate
