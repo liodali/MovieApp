@@ -1,3 +1,4 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -25,13 +26,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Color(0xFF545454),
-        primaryColorDark: Colors.white,
-        accentColorBrightness: Brightness.dark,
-        accentColor: Colors.white,
-        scaffoldBackgroundColor: Colors.grey[800],
-      ),
+      theme: FlexColorScheme.dark(
+        scheme:  FlexScheme.shark,
+        visualDensity: FlexColorScheme.comfortablePlatformDensity,
+      ).toTheme,
+      themeMode: ThemeMode.light,
       home: Home(),
       localizationsDelegates: [
         const AppLocalizationsDelegate(),

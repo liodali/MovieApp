@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:movie_app/app/common/app_localization.dart';
+import 'package:movie_app/app/ui/component/item_movie.dart';
 import 'package:movie_app/app/ui/widget/loading_widget.dart';
 import 'package:movie_app/app/ui/widget/stream_component.dart';
 import 'package:movie_app/app/viewmodel/MoviesViewModel.dart';
@@ -18,8 +20,11 @@ class ListMovies extends HookWidget {
       viewModel.initMovies("/popular");
     });
     return CustomScrollView(
+      primary: false,
       slivers: [
-        SliverToBoxAdapter(),
+        SliverToBoxAdapter(
+          child: SizedBox.shrink(),
+        ),
         StreamComponent<List<Movie>>(
           stream: viewModel.stream!,
           loading: SliverFillRemaining(
@@ -38,9 +43,16 @@ class ListMovies extends HookWidget {
             return SliverFillRemaining(
               hasScrollBody: true,
               fillOverscroll: true,
-              child: ListView.builder(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisExtent: 196,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 12),
                 itemBuilder: (ctx, index) {
-                  return Text((movies[0] as Movie).title);
+                  return ItemMovie(
+                    movie: movies[index],
+                  );
                 },
                 itemCount: movies.length,
                 addAutomaticKeepAlives: true,
@@ -48,6 +60,22 @@ class ListMovies extends HookWidget {
               ),
             );
           },
+        ),
+        Selector<MoviesViewModel, bool>(
+          builder: (ctx, isLoading, _) {
+            if (!isLoading) {
+              return SliverToBoxAdapter();
+            }
+            return SliverPadding(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
+              sliver: SliverToBoxAdapter(
+                child: LoadingWidget(
+                  loadingText: MyAppLocalizations.of(context)!.moreMovies,
+                ),
+              ),
+            );
+          },
+          selector: (ctx, vm) => vm.isLoading,
         ),
       ],
     );
