@@ -39,7 +39,7 @@ mixin NetworkMixin {
   }
 
   Map<String, dynamic> addApiKey(Map<String, dynamic>? queryParameter) {
-    if (queryParameter == null || !queryParameter.containsKey("apiKey")) {
+    if (queryParameter == null || !queryParameter.containsKey("api_key")) {
       if (queryParameter == null) {
         queryParameter = {};
       }

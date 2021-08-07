@@ -5,13 +5,14 @@ class Movie {
   final int id;
   final String title;
   @JsonKey(name: "poster_path")
-  final String poster;
+  final String? poster;
   @JsonKey(name: "backdrop_path")
-  final String backdrop;
+  final String? backdrop;
   final bool adult;
   final String overview;
   @JsonKey(name: "release_date")
-  final String releaseDate;
+  final String? releaseDate;
+
   final double popularity;
   @JsonKey(name: "vote_count")
   final int voteCount;
