@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/app/ui/widget/movie_image.dart';
+import 'package:movie_app/app/ui/widget/note_movie.dart';
 
 import '../../../domain/models/movie.dart';
 
@@ -26,7 +27,7 @@ class ItemMovie extends StatelessWidget {
             children: [
               if (movie.poster != null) ...[
                 MovieImage(
-                  url: movie.poster!,
+                  url: "w780${movie.poster!}",
                   size: Size.fromHeight(196),
                   fit: BoxFit.fill,
                 ),
@@ -53,25 +54,25 @@ class ItemMovie extends StatelessWidget {
                     },
                     blendMode: BlendMode.dstOut,
                     child: MovieImage(
-                      url: movie.poster!,
+                      url: "w780${movie.poster!}",
                       size: Size.fromHeight(196),
                       fit: BoxFit.fill,
                     ),
                   ),
                 ),
                 Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                      Colors.black.withOpacity(0),
-                      Colors.black.withOpacity(0.6)
-                    ],
-                            stops: [
-                      0.3,
-                      0.8
-                    ]))),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withOpacity(0),
+                        Colors.black.withOpacity(0.6)
+                      ],
+                      stops: [0.3, 0.8],
+                    ),
+                  ),
+                ),
               ],
               Positioned(
                 bottom: 8,
@@ -84,23 +85,13 @@ class ItemMovie extends StatelessWidget {
                     AutoSizeText(
                       movie.title,
                       maxLines: 1,
-                      minFontSize: 16,
+                      minFontSize: 12,
                       maxFontSize: 18,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 16,
-                        ),
-                        Text(
-                          "${movie.vote}",
-                          style: TextStyle(fontSize: 12),
-                        )
-                      ],
-                    )
+                    NoteMovie(
+                      note: movie.vote,
+                    ),
                   ],
                 ),
               )
