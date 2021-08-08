@@ -1,3 +1,5 @@
+import 'package:movie_app/domain/models/detail_movie.dart';
+
 import 'movie.dart';
 
 abstract class IResponse {}
@@ -31,3 +33,4 @@ class MoviesResponse extends Response<List<Movie>> {
     required List<Movie> movies,
   }) : super(data: movies);
 }
+

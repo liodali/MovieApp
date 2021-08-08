@@ -15,7 +15,7 @@ class MoviesViewModel extends ChangeNotifier {
   int page = 1;
   IResponse? _moviesResponse;
   List<Movie> _moviesCache = [];
-  PublishSubject<List<Movie>> _moviesPublisher = PublishSubject<List<Movie>>();
+  final  _moviesPublisher = PublishSubject<List<Movie>>();
   final _lock = Lock();
 
   String get typeMovieSelected => _typeMovieSelected;
