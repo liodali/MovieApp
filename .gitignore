@@ -48,4 +48,5 @@ app.*.map.json
 /ios/
 /lib/**/*.g.dart
 /lib/**/*.config.dart
+/lib/**/*.gr.dart
 .env

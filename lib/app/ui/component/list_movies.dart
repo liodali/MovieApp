@@ -1,12 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:movie_app/app/common/app_localization.dart';
-import 'package:movie_app/app/ui/component/item_movie.dart';
-import 'package:movie_app/app/ui/widget/loading_widget.dart';
-import 'package:movie_app/app/ui/widget/stream_component.dart';
-import 'package:movie_app/app/viewmodel/MoviesViewModel.dart';
 import 'package:movie_app/domain/models/movie.dart';
 import 'package:provider/provider.dart';
+
+import '../../common/app_localization.dart';
+import '../../common/routes.dart';
+import '../../viewmodel/MoviesViewModel.dart';
+import '../widget/loading_widget.dart';
+import '../widget/stream_component.dart';
+import 'item_movie.dart';
 
 class ListMovies extends HookWidget {
   ListMovies({
@@ -45,18 +48,28 @@ class ListMovies extends HookWidget {
               hasScrollBody: true,
               fillOverscroll: true,
               child: GridView.builder(
+                shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     mainAxisExtent: 196,
                     mainAxisSpacing: 8,
                     crossAxisSpacing: 12),
                 itemBuilder: (ctx, index) {
-                  return ItemMovie(
-                    movie: movies[index],
+                  return GestureDetector(
+                    onTap: () {
+                      AutoRouter.of(context).navigate(
+                        MovieDetailRoute(
+                          movie: movies[index],
+                        ),
+                      );
+                    },
+                    child: ItemMovie(
+                      movie: movies[index],
+                    ),
                   );
                 },
                 itemCount: movies.length,
-                addAutomaticKeepAlives: true,
+                addAutomaticKeepAlives: false,
                 addRepaintBoundaries: false,
               ),
             );

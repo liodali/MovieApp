@@ -19,7 +19,7 @@ class MovieImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final server = FlutterConfig.get("IMAGE_SERVER");
     return CachedNetworkImage(
-      imageUrl: "$server/w780$url",
+      imageUrl: "$server/$url",
       maxHeightDiskCache: 100,
       maxWidthDiskCache: 100,
       height: size?.height,

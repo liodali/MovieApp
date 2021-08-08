@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class NoteMovie extends StatelessWidget {
   final double note;
-  final double? votes;
+  final int? votes;
 
   const NoteMovie({
     Key? key,
@@ -16,12 +16,12 @@ class NoteMovie extends StatelessWidget {
       child: Row(
         children: [
           Card(
-            elevation: 0,
+            elevation: 1,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8)
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 3,horizontal: 5),
+              padding: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -30,11 +30,23 @@ class NoteMovie extends StatelessWidget {
                     size: 16,
                     color: Colors.amber,
                   ),
-                  Text("$note",style: TextStyle(fontSize: 11),),
+                  Text(
+                    "$note",
+                    style: TextStyle(fontSize: 11),
+                  ),
                 ],
               ),
             ),
           ),
+          if (votes != null) ...[
+            Text(
+              "($votes)",
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey[600],
+              ),
+            )
+          ]
         ],
       ),
     );
