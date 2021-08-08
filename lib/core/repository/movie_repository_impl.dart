@@ -17,7 +17,7 @@ Future<IResponse> computeParserMoviesJson(Map<String, dynamic> input) async {
 
 @LazySingleton(as: MovieRepository)
 class MovieRepositoryImpl with NetworkMixin implements MovieRepository {
-  static const String prefixMovieURL = "/movie";
+  static const String prefixMovieURL = "movie";
 
   @override
   Future<IResponse> getAll({String path = "", int page = 1}) async {
