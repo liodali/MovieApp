@@ -42,7 +42,28 @@ class MovieDetailCore extends HookWidget {
                 icon: Icon(Icons.arrow_back_ios),
                 onPressed: () => Navigator.pop(context),
               ),
-              actions: [],
+              actions: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    right: 8,
+                    top: 5,
+                    bottom: 5,
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: Size(32, 24),
+                        padding: EdgeInsets.all(12),
+                        primary: Colors.amber,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12))),
+                    child: Icon(
+                      Icons.bookmark_border,
+                      size: 26,
+                    ),
+                  ),
+                ),
+              ],
               pinned: true,
               flexibleSpace: FlexibleAppBarMovieDetail(),
               expandedHeight: 256,
