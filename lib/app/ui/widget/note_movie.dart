@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/app/common/app_localization.dart';
 
 class NoteMovie extends StatelessWidget {
   final double note;
@@ -40,7 +41,7 @@ class NoteMovie extends StatelessWidget {
           ),
           if (votes != null) ...[
             Text(
-              "($votes)",
+              "($votes ${MyAppLocalizations.of(context)!.votes})",
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey[600],

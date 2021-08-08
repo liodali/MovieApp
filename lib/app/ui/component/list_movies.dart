@@ -21,7 +21,7 @@ class ListMovies extends HookWidget {
     final viewModel = context.read<MoviesViewModel>();
     useEffect(() {
       viewModel.initMovies();
-    });
+    },[viewModel]);
     return CustomScrollView(
       primary: false,
       slivers: [
