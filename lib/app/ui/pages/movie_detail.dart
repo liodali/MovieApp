@@ -61,10 +61,9 @@ class MovieDetailCore extends HookWidget {
                             action: () async {
                               int response = 0;
                               if (!detailVM.isFav) {
-                                response = await detailVM
-                                    .addToFavorite(detailVM.movie);
+                                response = await detailVM.addToFavorite();
                               } else {
-                                ///TO DO
+                                response = await detailVM.removeFromFavorite();
                               }
 
                               Navigator.pop(ctx, response);
@@ -76,12 +75,12 @@ class MovieDetailCore extends HookWidget {
                       switch (response) {
                         case 200:
                           message = detailVM.isFav
-                              ? MyAppLocalizations.of(context)!.successAddToFav
+                              ? MyAppLocalizations.of(context)!.successRemoveFromFav
                               : MyAppLocalizations.of(context)!.successAddToFav;
                           break;
                         case 400:
                           message = detailVM.isFav
-                              ? MyAppLocalizations.of(context)!.failedToAddToFav
+                              ? MyAppLocalizations.of(context)!.failedToRemoveFromFav
                               : MyAppLocalizations.of(context)!
                                   .failedToAddToFav;
 

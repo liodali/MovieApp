@@ -71,9 +71,13 @@ class MovieRepositoryImpl
   }
 
   @override
-  Future<int> removeFromFavorite(Movie movie) {
-    // TODO: implement removeFromFavorite
-    throw UnimplementedError();
+  Future<int> removeFromFavorite(int movieId) async {
+    try {
+      await deleteFavorite(movieId);
+      return 200;
+    } catch (e) {
+      return 400;
+    }
   }
 
   @override
@@ -87,7 +91,7 @@ class MovieRepositoryImpl
   }
 
   @override
-  Future<bool> isMovieFav(int id) async{
-     return await isMovieFavorite(id);
+  Future<bool> isMovieFav(int id) async {
+    return await isMovieFavorite(id);
   }
 }

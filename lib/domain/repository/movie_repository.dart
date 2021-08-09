@@ -11,5 +11,5 @@ abstract class MovieRepository extends Repository<Movie> {
 
   Future<int> addToFavorite(Movie movie);
 
-  Future<int> removeFromFavorite(Movie movie);
+  Future<int> removeFromFavorite(int movieId);
 }
