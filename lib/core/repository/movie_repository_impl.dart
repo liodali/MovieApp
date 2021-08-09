@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:movie_app/core/common/local_storage_mixin.dart';
 
 import '../../domain/models/detail_movie.dart';
 import '../../domain/models/movie.dart';
 import '../../domain/models/response.dart';
 import '../../domain/repository/movie_repository.dart';
-import '../common/networkMixin.dart';
+import '../common/network_mixin.dart';
 
 Future<IResponse> computeParserMoviesJson(Map<String, dynamic> input) async {
   return MoviesResponse(
@@ -14,9 +15,10 @@ Future<IResponse> computeParserMoviesJson(Map<String, dynamic> input) async {
   );
 }
 
-
 @LazySingleton(as: MovieRepository)
-class MovieRepositoryImpl with NetworkMixin implements MovieRepository {
+class MovieRepositoryImpl
+    with NetworkMixin, LocalStorageMixin
+    implements MovieRepository {
   static const String prefixMovieURL = "movie";
 
   @override
@@ -59,14 +61,28 @@ class MovieRepositoryImpl with NetworkMixin implements MovieRepository {
   }
 
   @override
-  Future<IResponse> addToFavorite(Movie movie) {
-    // TODO: implement addToFavorite
+  Future<int> addToFavorite(Movie movie) async {
+    try {
+      await addFavorite(movie);
+      return 200;
+    } catch (e) {
+      return 400;
+    }
+  }
+
+  @override
+  Future<int> removeFromFavorite(Movie movie) {
+    // TODO: implement removeFromFavorite
     throw UnimplementedError();
   }
 
   @override
-  Future<IResponse> removeFromFavorite(Movie movie) {
-    // TODO: implement removeFromFavorite
-    throw UnimplementedError();
+  Future<IResponse> listMovieFavorites() async {
+    try {
+      var list = await getFavorites();
+      return MoviesResponse(maxPages: 1, movies: list);
+    } catch (e) {
+      return ErrorResponse(error: {"code": 404, "message": e.toString()});
+    }
   }
 }
