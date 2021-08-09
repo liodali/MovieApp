@@ -38,7 +38,7 @@ void main() {
       await testDB.addFavorite(movie);
 
       final movieFromHiveDB = await testDB.getFavoriteById(297761);
-      expect(movieFromHiveDB.title, "Suicide Squad");
+      expect(movieFromHiveDB!.title, "Suicide Squad");
 
       final movies = await testDB.getFavorites();
       expect(movies.length, 1);

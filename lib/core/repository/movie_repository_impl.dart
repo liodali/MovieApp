@@ -85,4 +85,9 @@ class MovieRepositoryImpl
       return ErrorResponse(error: {"code": 404, "message": e.toString()});
     }
   }
+
+  @override
+  Future<bool> isMovieFav(int id) async{
+     return await isMovieFavorite(id);
+  }
 }

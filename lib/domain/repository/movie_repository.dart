@@ -7,6 +7,8 @@ abstract class MovieRepository extends Repository<Movie> {
 
   Future<IResponse> listMovieFavorites();
 
+  Future<bool> isMovieFav(int id);
+
   Future<int> addToFavorite(Movie movie);
 
   Future<int> removeFromFavorite(Movie movie);

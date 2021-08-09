@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:movie_app/app/common/app_localization.dart';
+import 'package:movie_app/app/ui/widget/action_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../../../domain/models/movie.dart';
@@ -31,6 +33,7 @@ class MovieDetailCore extends HookWidget {
     final detailVM = context.read<DetailMovieViewModel>();
     useEffect(() {
       detailVM.getDetailMovie();
+      detailVM.checkIsFav();
     }, [detailVM]);
     return Scaffold(
       primary: true,
@@ -49,17 +52,55 @@ class MovieDetailCore extends HookWidget {
                     top: 5,
                     bottom: 5,
                   ),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: Size(32, 24),
-                        padding: EdgeInsets.all(12),
-                        primary: Colors.amber,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12))),
-                    child: Icon(
-                      Icons.bookmark_border,
-                      size: 26,
+                  child: IconButton(
+                    onPressed: () async {
+                      int response = await showDialog(
+                        context: context,
+                        builder: (ctx) {
+                          return ActionDialog(
+                            action: () async {
+                              int response = 0;
+                              if (!detailVM.isFav) {
+                                response = await detailVM
+                                    .addToFavorite(detailVM.movie);
+                              } else {
+                                ///TO DO
+                              }
+
+                              Navigator.pop(ctx, response);
+                            },
+                          );
+                        },
+                      );
+                      var message = "";
+                      switch (response) {
+                        case 200:
+                          message = detailVM.isFav
+                              ? MyAppLocalizations.of(context)!.successAddToFav
+                              : MyAppLocalizations.of(context)!.successAddToFav;
+                          break;
+                        case 400:
+                          message = detailVM.isFav
+                              ? MyAppLocalizations.of(context)!.failedToAddToFav
+                              : MyAppLocalizations.of(context)!
+                                  .failedToAddToFav;
+
+                          break;
+                      }
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text(message)));
+                      detailVM.setIsFav(!detailVM.isFav);
+                    },
+                    iconSize: 24,
+                    icon: Selector<DetailMovieViewModel, bool>(
+                      selector: (ctx, vm) => vm.isFav,
+                      builder: (ctx, isFav, _) {
+                        return Icon(
+                          isFav ? Icons.bookmark : Icons.bookmark_border,
+                          color: isFav ? Colors.amber : null,
+                          size: 24,
+                        );
+                      },
                     ),
                   ),
                 ),

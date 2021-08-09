@@ -23,48 +23,37 @@ mixin LocalStorageMixin {
     await dbFavoriteHive.deleteFromDisk();
   }
 
+  Future<bool> isMovieFavorite(int id) async {
+    return dbFavoriteHive.containsKey(id);
+  }
+
   Future<void> addFavorite(Movie movie) async {
-    await dbFavoriteHive.put(movie.id, movie.toJson());
-    await _addFavoriteIds(movie.id);
+    if (!dbFavoriteHive.containsKey(movie.id)) {
+      await dbFavoriteHive.put(movie.id, movie.toJson());
+    }
   }
 
   Future<void> deleteFavorite(int movieId) async {
-     dbFavoriteHive.delete(movieId);
-     _removeFavoriteIds(movieId);
+    if (dbFavoriteHive.containsKey(movieId)) {
+      dbFavoriteHive.delete(movieId);
+    }
   }
 
-  Future<Movie> getFavoriteById(int id) async {
-    Map<String, dynamic> map = await dbFavoriteHive.get(id);
-    return Movie.fromJson(map);
+  Future<Movie?> getFavoriteById(int id) async {
+    if (dbFavoriteHive.containsKey(id)) {
+      Map<String, dynamic> map = await dbFavoriteHive.get(id);
+      return Movie.fromJson(map);
+    }
+    return null;
   }
 
   Future<List<Movie>> getFavorites() async {
-    List<int> ids = await dbFavoriteHive.get(favoriteIdsKey);
+    List<int> ids = dbFavoriteHive.keys as List<int>;
     List<Movie> movies = [];
     for (int id in ids) {
       final m = await getFavoriteById(id);
-      movies.add(m);
+      movies.add(m!);
     }
     return movies;
-  }
-
-  Future<void> _addFavoriteIds(int id) async {
-    if (dbFavoriteHive.containsKey(favoriteIdsKey)) {
-      List<int> list = await dbFavoriteHive.get(favoriteIdsKey);
-      int index = dbFavoriteHive.keys.toList().indexOf(id);
-      list.add(id);
-      await dbFavoriteHive.putAt(index, list);
-    } else {
-      await dbFavoriteHive.put(favoriteIdsKey, [id]);
-    }
-  }
-
-  Future<void> _removeFavoriteIds(int id) async {
-    if (dbFavoriteHive.containsKey(favoriteIdsKey)) {
-      List<int> list = await dbFavoriteHive.get(favoriteIdsKey);
-      int index = dbFavoriteHive.keys.toList().indexOf(id);
-      list.remove(id);
-      await dbFavoriteHive.putAt(index, list);
-    }
   }
 }

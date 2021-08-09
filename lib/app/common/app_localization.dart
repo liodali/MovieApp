@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MyAppLocalizations {
+
   MyAppLocalizations(this.locale);
 
   final Locale locale;
@@ -18,6 +19,10 @@ class MyAppLocalizations {
       'more_movies': 'more movies ...',
       'search_hint': 'search',
       'votes': 'votes',
+      'success_add_fav': 'Added successfully to you favorite list',
+      'success_remove_from_fav': 'This movie is  successfully removed From your favorite list',
+      'failed_add_fav': 'Opp!Error to add this movie to your favorite list',
+      'failed_remove_from_fav': 'Opp!Error to remove this movie from your favorite list',
     },
     'fr': {
       'title_app': 'Movie TMDB',
@@ -26,6 +31,10 @@ class MyAppLocalizations {
       'more_movies': 'plus de films ...',
       'search_hint': 'recherche',
       'votes': 'votes',
+      'success_add_fav': 'ce film a été ajouté avec success',
+      'success_remove_from_fav': 'ce film a été supprime de votre list favorie avec success',
+      'failed_add_fav': 'Opps! nous ne pouvons pas ajouter votre film au favorite ',
+      'failed_remove_from_fav': 'Opps! nous ne pouvons pas supprime votre film de la liste favorite ',
     },
   };
 
@@ -44,6 +53,10 @@ class MyAppLocalizations {
       _localizedValues[locale.languageCode]!['search_hint']!;
 
   String get votes => _localizedValues[locale.languageCode]!['votes']!;
+  String get    successAddToFav => _localizedValues[locale.languageCode]!['success_add_fav']!;
+  String get    successRemoveFromFav => _localizedValues[locale.languageCode]!['success_remove_from_fav']!;
+  String get    failedToAddToFav => _localizedValues[locale.languageCode]!['failed_add_fav']!;
+  String get    failedToRemoveFromFav => _localizedValues[locale.languageCode]!['failed_remove_from_fav']!;
 }
 
 class AppLocalizationsDelegate
