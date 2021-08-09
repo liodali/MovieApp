@@ -42,26 +42,29 @@ class FlexibleAppBarMovieDetail extends StatelessWidget {
           return FlexibleSpaceBar(
             background: Stack(
               children: [
-                MovieImage(
-                  url: "w780${movie.backdrop!}",
-                  size: Size(MediaQuery.of(context).size.width, 256),
-                  fit: BoxFit.fill,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withOpacity(0),
-                        Theme.of(context).scaffoldBackgroundColor.withOpacity(1)
-                      ],
-                      stops: [0.6, 0.8],
+                if(movie.backdrop!=null)...[
+                  MovieImage(
+                    url: "w780${movie.backdrop!}",
+                    size: Size(MediaQuery.of(context).size.width, 256),
+                    fit: BoxFit.fill,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Theme.of(context)
+                              .scaffoldBackgroundColor
+                              .withOpacity(0),
+                          Theme.of(context).scaffoldBackgroundColor.withOpacity(1)
+                        ],
+                        stops: [0.6, 0.8],
+                      ),
                     ),
                   ),
-                ),
+                ],
+
                 Positioned(
                   height: 136,
                   bottom: 12,
