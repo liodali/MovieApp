@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/domain/models/movie.dart';
 import 'package:provider/provider.dart';
@@ -70,10 +69,9 @@ class _StateListMovies extends State<ListMovies> {
             itemBuilder: (ctx, index) {
               return GestureDetector(
                 onTap: () async {
-                  await AutoRouter.of(context).navigate(
-                    MovieDetailRoute(
-                      movie: movies[index],
-                    ),
+                  await context.navigate(
+                    AppRouter.detailMovieNamePage,
+                    arguments: movies[index],
                   );
                 },
                 child: ItemMovie(

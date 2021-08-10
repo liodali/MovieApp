@@ -17,7 +17,6 @@ class MoviesViewModel extends ChangeNotifier {
   List<Movie> _moviesCache = [];
   final  _moviesPublisher = PublishSubject<List<Movie>>();
 
-  late final  _streamMoviesPublisher = _moviesPublisher.stream;
 
   final _lock = Lock();
 
@@ -27,7 +26,7 @@ class MoviesViewModel extends ChangeNotifier {
 
   IResponse? get moviesResponse => _moviesResponse;
 
-  Stream<List<Movie>>? get stream => _streamMoviesPublisher;
+  Stream<List<Movie>>? get stream => _moviesPublisher.stream;
 
   MoviesViewModel();
 

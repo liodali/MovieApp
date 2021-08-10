@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:movie_app/app/common/app_localization.dart';
@@ -29,7 +28,7 @@ class Home extends HookWidget {
     return Scaffold(
       body: NotificationListener<ScrollEndNotification>(
         onNotification: (notif) {
-          if (notif.metrics.pixels > (notif.metrics.maxScrollExtent-50) &&
+          if (notif.metrics.pixels > (notif.metrics.maxScrollExtent - 50) &&
               notif.metrics.axisDirection == AxisDirection.down) {
             final viewModel = context.read<MoviesViewModel>();
             print(
@@ -56,10 +55,9 @@ class Home extends HookWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                   child: ElevatedButton(
-                      onPressed: () {
-                        AutoRouter.of(context).navigate(
-                          FavoriteMovieListRoute(),
-                        );
+                      onPressed: () async {
+                        await context
+                            .navigate(AppRouter.favoriteMoviesNamePage);
                       },
                       style: ElevatedButton.styleFrom(
                           primary: Colors.amber,

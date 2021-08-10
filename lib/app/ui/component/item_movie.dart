@@ -26,10 +26,13 @@ class ItemMovie extends StatelessWidget {
           child: Stack(
             children: [
               if (movie.poster != null) ...[
-                MovieImage(
-                  url: "w780${movie.poster!}",
-                  size: Size.fromHeight(196),
-                  fit: BoxFit.fill,
+                Hero(
+                  tag: movie.id,
+                  child: MovieImage(
+                    url: "w780${movie.poster!}",
+                    size: Size.fromHeight(196),
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -53,15 +56,25 @@ class ItemMovie extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AutoSizeText(
-                      movie.title,
-                      maxLines: 1,
-                      minFontSize: 12,
-                      maxFontSize: 18,
-                      overflow: TextOverflow.ellipsis,
+                    Hero(
+                      tag: "${movie.title}",
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: AutoSizeText(
+                          movie.title,
+                          maxLines: 1,
+                          minFontSize: 11,
+                          maxFontSize: 18,
+                          style: TextStyle(fontSize: 16),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ),
-                    NoteMovie(
-                      note: movie.vote,
+                    Hero(
+                      tag: "${movie.vote + movie.voteCount}",
+                      child: NoteMovie(
+                        note: movie.vote,
+                      ),
                     ),
                   ],
                 ),

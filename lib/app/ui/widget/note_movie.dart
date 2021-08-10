@@ -15,8 +15,11 @@ class NoteMovie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      physics: NeverScrollableScrollPhysics(),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Card(
             elevation: elevation,
@@ -24,7 +27,10 @@ class NoteMovie extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+              padding: EdgeInsets.symmetric(
+                vertical: 3,
+                horizontal: 5,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

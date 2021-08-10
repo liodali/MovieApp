@@ -5,6 +5,7 @@ import 'package:movie_app/app/ui/widget/action_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../../../domain/models/movie.dart';
+import '../../common/routes.dart';
 import '../../viewmodel/DetailMovieViewModel.dart';
 import '../component/more_information_movie.dart';
 import '../component/overview_detail_movie.dart';
@@ -45,7 +46,7 @@ class MovieDetailCore extends HookWidget {
 
               leading: IconButton(
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => context.pop(),
               ),
               actions: [
                 Padding(
@@ -65,8 +66,7 @@ class MovieDetailCore extends HookWidget {
                               if (!detailVM.isFav) {
                                 response = await detailVM.addToFavorite();
                               } else {
-                                response =
-                                await detailVM.removeFromFavorite();
+                                response = await detailVM.removeFromFavorite();
                               }
 
                               Navigator.pop(ctx, response);
@@ -79,16 +79,15 @@ class MovieDetailCore extends HookWidget {
                         case 200:
                           message = detailVM.isFav
                               ? MyAppLocalizations.of(context)!
-                              .successRemoveFromFav
-                              : MyAppLocalizations.of(context)!
-                              .successAddToFav;
+                                  .successRemoveFromFav
+                              : MyAppLocalizations.of(context)!.successAddToFav;
                           break;
                         case 400:
                           message = detailVM.isFav
                               ? MyAppLocalizations.of(context)!
-                              .failedToRemoveFromFav
+                                  .failedToRemoveFromFav
                               : MyAppLocalizations.of(context)!
-                              .failedToAddToFav;
+                                  .failedToAddToFav;
 
                           break;
                       }

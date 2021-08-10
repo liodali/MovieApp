@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:movie_app/app/common/app_localization.dart';
@@ -9,6 +8,7 @@ import 'package:movie_app/domain/models/movie.dart';
 import 'package:movie_app/domain/models/response.dart';
 import 'package:provider/provider.dart';
 
+import '../../common/routes.dart';
 import '../component/movies_favorites.dart';
 import '../widget/empty_list.dart';
 
@@ -34,7 +34,7 @@ class FavoriteMovieListCore extends HookWidget {
         slivers: [
           SliverAppBar(
             leading: IconButton(
-              onPressed: () => AutoRouter.of(context).pop(),
+              onPressed: () => context.pop(),
               icon: Icon(Icons.arrow_back_ios),
             ),
             title: Text(

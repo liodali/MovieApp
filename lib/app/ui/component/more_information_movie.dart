@@ -17,7 +17,7 @@ class MoreInformationMovie extends StatelessWidget {
             MovieInformation(
               icon: Icon(Icons.access_time),
               information:
-              "${detail?.runtime != null ? calculateDurationMovie(detail!.runtime!) : "-"}",
+                  "${detail?.runtime != null && detail?.runtime != 0 ? calculateDurationMovie(detail!.runtime!) : "-"}",
             ),
             SizedBox(
               height: 5,
@@ -32,7 +32,7 @@ class MoreInformationMovie extends StatelessWidget {
             MovieInformation(
               icon: Icon(Icons.local_movies),
               information:
-              "${detail?.genres.map((e) => e.name).reduce((value, element) => "$value,$element") ?? "-"}",
+                  "${detail?.genres.map((e) => e.name).reduce((value, element) => "$value,$element") ?? "-"}",
             ),
           ],
         );
