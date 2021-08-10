@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 
 import '../../viewmodel/DetailMovieViewModel.dart';
+import 'app_hero.dart';
 import 'movie_image.dart';
 import 'note_movie.dart';
 
@@ -71,8 +72,8 @@ class FlexibleAppBarMovieDetail extends StatelessWidget {
                   bottom: 12,
                   left: 12,
                   width: 96,
-                  child: Hero(
-                    tag: movie.id,
+                  child: AppHero(
+                    tag: movie.id.toString(),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: MovieImage(
@@ -86,7 +87,7 @@ class FlexibleAppBarMovieDetail extends StatelessWidget {
                 Positioned(
                   bottom: 12,
                   left: 120,
-                  child: Hero(
+                  child: AppHero(
                     tag: "${movie.vote + movie.voteCount}",
                     child: Material(
                       type: MaterialType.transparency,
@@ -101,15 +102,12 @@ class FlexibleAppBarMovieDetail extends StatelessWidget {
                 ),
               ],
             ),
-            title: Hero(
+            title: AppHero(
               tag: movie.title,
-              child: Material(
-                type: MaterialType.transparency,
-                child: Text(
-                  movie.title,
-                  style: TextStyle(
-                    fontSize: fontSizeText.value,
-                  ),
+              child: Text(
+                movie.title,
+                style: TextStyle(
+                  fontSize: fontSizeText.value,
                 ),
               ),
             ),

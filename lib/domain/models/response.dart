@@ -1,5 +1,3 @@
-import 'package:movie_app/domain/models/detail_movie.dart';
-
 import 'movie.dart';
 
 abstract class IResponse {}
@@ -28,9 +26,9 @@ class MovieResponse extends Response<Movie> {
 
 class MoviesResponse extends Response<List<Movie>> {
   final int maxPages;
+
   MoviesResponse({
     required this.maxPages,
     required List<Movie> movies,
   }) : super(data: movies);
 }
-

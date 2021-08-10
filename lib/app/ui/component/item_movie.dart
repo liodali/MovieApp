@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/app/ui/widget/app_hero.dart';
 import 'package:movie_app/app/ui/widget/movie_image.dart';
 import 'package:movie_app/app/ui/widget/note_movie.dart';
 
@@ -26,12 +25,14 @@ class ItemMovie extends StatelessWidget {
           child: Stack(
             children: [
               if (movie.poster != null) ...[
-                Hero(
-                  tag: movie.id,
-                  child: MovieImage(
-                    url: "w780${movie.poster!}",
-                    size: Size.fromHeight(196),
-                    fit: BoxFit.fill,
+                Positioned.fill(
+                  child: AppHero(
+                    tag: movie.id.toString(),
+                    child: MovieImage(
+                      url: "w780${movie.poster!}",
+                      size: Size.fromHeight(196),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
                 Container(
@@ -56,21 +57,18 @@ class ItemMovie extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Hero(
+                    AppHero(
                       tag: "${movie.title}",
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: AutoSizeText(
-                          movie.title,
-                          maxLines: 1,
-                          minFontSize: 11,
-                          maxFontSize: 18,
-                          style: TextStyle(fontSize: 16),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      child: AutoSizeText(
+                        movie.title,
+                        maxLines: 1,
+                        minFontSize: 11,
+                        maxFontSize: 18,
+                        style: TextStyle(fontSize: 16),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    Hero(
+                    AppHero(
                       tag: "${movie.vote + movie.voteCount}",
                       child: NoteMovie(
                         note: movie.vote,
