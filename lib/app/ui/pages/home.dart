@@ -29,35 +29,39 @@ class Home extends HookWidget {
           if (notif.metrics.pixels == notif.metrics.maxScrollExtent &&
               notif.metrics.axisDirection == AxisDirection.down) {
             final viewModel = context.read<MoviesViewModel>();
-            print("${notif.metrics.pixels},${notif.metrics.maxScrollExtent} : fetch ${viewModel.page}");
+            print(
+                "${notif.metrics.pixels},${notif.metrics.maxScrollExtent} : fetch ${viewModel.page}");
             Future.microtask(() async => await viewModel.getMovies());
           }
           return true;
         },
         child: NestedScrollView(
-          physics: NeverScrollableScrollPhysics(),
           //controller: controller,
           headerSliverBuilder: (ctx, _) {
             return [
-              SliverAppBar(
-                title: SearchTextMovie(
-                  textController: textController,
-                  hint: MyAppLocalizations.of(context)!.searchHint,
-                  onTap: () {},
-                ),
-                pinned: true,
-                floating: false,
-                forceElevated: true,
-                elevation: 2,
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(72),
-                  child: TabMoviesTypes(
-                    tabs: categoriesMovies,
-                    selectedCategory: (category) async {
-                      final movieViewModel = context.read<MoviesViewModel>();
-                      movieViewModel.setTypeMovieSelected(category);
-                      await movieViewModel.getMovies(restart: true);
-                    },
+              SliverOverlapAbsorber(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
+                sliver: SliverAppBar(
+                  title: SearchTextMovie(
+                    textController: textController,
+                    hint: MyAppLocalizations.of(context)!.searchHint,
+                    onTap: () {},
+                  ),
+                  pinned: true,
+                  floating: false,
+                  forceElevated: true,
+                  elevation: 2,
+                  bottom: PreferredSize(
+                    preferredSize: Size.fromHeight(72),
+                    child: TabMoviesTypes(
+                      tabs: categoriesMovies,
+                      selectedCategory: (category) async {
+                        final movieViewModel = context.read<MoviesViewModel>();
+                        movieViewModel.setTypeMovieSelected(category);
+                        await movieViewModel.getMovies(restart: true);
+                      },
+                    ),
                   ),
                 ),
               ),

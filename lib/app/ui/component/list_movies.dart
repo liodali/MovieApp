@@ -21,12 +21,12 @@ class ListMovies extends HookWidget {
     final viewModel = context.read<MoviesViewModel>();
     useEffect(() {
       viewModel.initMovies();
-    },[viewModel]);
+    }, [viewModel]);
     return CustomScrollView(
-      primary: false,
+      physics: ClampingScrollPhysics(),
       slivers: [
-        SliverToBoxAdapter(
-          child: SizedBox.shrink(),
+        SliverOverlapInjector(
+          handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
         ),
         StreamComponent<List<Movie>>(
           stream: viewModel.stream!,
@@ -75,21 +75,21 @@ class ListMovies extends HookWidget {
             );
           },
         ),
-        Selector<MoviesViewModel, bool>(
-          builder: (ctx, isLoading, _) {
-            if (!isLoading) {
-              return SliverToBoxAdapter();
-            }
-            return SliverPadding(
-              padding: EdgeInsets.symmetric(vertical: 8.0),
-              sliver: SliverToBoxAdapter(
+        SliverToBoxAdapter(
+          child: Selector<MoviesViewModel, bool>(
+            builder: (ctx, isLoading, _) {
+              if (!isLoading) {
+                return SizedBox.shrink();
+              }
+              return Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: LoadingWidget(
                   loadingText: MyAppLocalizations.of(context)!.moreMovies,
                 ),
-              ),
-            );
-          },
-          selector: (ctx, vm) => vm.isLoading,
+              );
+            },
+            selector: (ctx, vm) => vm.isLoading,
+          ),
         ),
       ],
     );

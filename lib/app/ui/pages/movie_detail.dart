@@ -38,9 +38,11 @@ class MovieDetailCore extends HookWidget {
     return Scaffold(
       primary: true,
       body: NestedScrollView(
-        headerSliverBuilder: (ctx, _) {
+        headerSliverBuilder: (ctx, innerBoxIsScrolled) {
           return [
             SliverAppBar(
+              forceElevated: innerBoxIsScrolled,
+
               leading: IconButton(
                 icon: Icon(Icons.arrow_back_ios),
                 onPressed: () => Navigator.pop(context),
@@ -63,7 +65,8 @@ class MovieDetailCore extends HookWidget {
                               if (!detailVM.isFav) {
                                 response = await detailVM.addToFavorite();
                               } else {
-                                response = await detailVM.removeFromFavorite();
+                                response =
+                                await detailVM.removeFromFavorite();
                               }
 
                               Navigator.pop(ctx, response);
@@ -75,14 +78,17 @@ class MovieDetailCore extends HookWidget {
                       switch (response) {
                         case 200:
                           message = detailVM.isFav
-                              ? MyAppLocalizations.of(context)!.successRemoveFromFav
-                              : MyAppLocalizations.of(context)!.successAddToFav;
+                              ? MyAppLocalizations.of(context)!
+                              .successRemoveFromFav
+                              : MyAppLocalizations.of(context)!
+                              .successAddToFav;
                           break;
                         case 400:
                           message = detailVM.isFav
-                              ? MyAppLocalizations.of(context)!.failedToRemoveFromFav
+                              ? MyAppLocalizations.of(context)!
+                              .failedToRemoveFromFav
                               : MyAppLocalizations.of(context)!
-                                  .failedToAddToFav;
+                              .failedToAddToFav;
 
                           break;
                       }
