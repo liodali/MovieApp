@@ -31,35 +31,6 @@ class ItemMovie extends StatelessWidget {
                   size: Size.fromHeight(196),
                   fit: BoxFit.fill,
                 ),
-                ImageFiltered(
-                  imageFilter: ImageFilter.blur(
-                    sigmaX: 2,
-                    sigmaY: 2,
-                  ),
-                  child: ShaderMask(
-                    shaderCallback: (rect) {
-                      return LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.black45,
-                            Colors.transparent,
-                          ],
-                          stops: [
-                            0.7,
-                            1
-                          ]).createShader(
-                        rect,
-                      );
-                    },
-                    blendMode: BlendMode.dstOut,
-                    child: MovieImage(
-                      url: "w780${movie.poster!}",
-                      size: Size.fromHeight(196),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
