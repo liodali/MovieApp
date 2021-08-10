@@ -4,11 +4,13 @@ import 'package:movie_app/app/common/app_localization.dart';
 class NoteMovie extends StatelessWidget {
   final double note;
   final int? votes;
+  final double elevation;
 
   const NoteMovie({
     Key? key,
     required this.note,
     this.votes,
+    this.elevation = 1,
   }) : super(key: key);
 
   @override
@@ -17,7 +19,7 @@ class NoteMovie extends StatelessWidget {
       child: Row(
         children: [
           Card(
-            elevation: 1,
+            elevation: elevation,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),

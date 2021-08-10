@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:movie_app/app/common/app_localization.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../viewmodel/MoviesViewModel.dart';
 import '../component/list_movies.dart';
+import '../../common/routes.dart';
 
 class Home extends HookWidget {
   @override
@@ -40,8 +42,7 @@ class Home extends HookWidget {
           headerSliverBuilder: (ctx, _) {
             return [
               SliverOverlapAbsorber(
-                handle:
-                    NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
+                handle: NestedScrollView.sliverOverlapAbsorberHandleFor(ctx),
                 sliver: SliverAppBar(
                   title: SearchTextMovie(
                     textController: textController,
@@ -52,6 +53,29 @@ class Home extends HookWidget {
                   floating: false,
                   forceElevated: true,
                   elevation: 2,
+                  actions: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 8,horizontal: 5),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            AutoRouter.of(context).navigate(
+                              FavoriteMovieListRoute(),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.amber,
+                              minimumSize: Size(48, 24),
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              )),
+                          child: Icon(
+                            Icons.bookmark_border,
+                            size: 24,
+                          )),
+                    ),
+
+                  ],
                   bottom: PreferredSize(
                     preferredSize: Size.fromHeight(72),
                     child: TabMoviesTypes(
