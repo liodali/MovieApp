@@ -20,8 +20,8 @@ class MyAppLocalizations {
       'search_hint': 'search',
       'votes': 'votes',
       'success_add_fav': 'Added successfully to you favorite list',
-      'success_remove_from_fav':
-          'This movie is  successfully removed From your favorite list',
+      'success_remove_from_fav': 'This movie is  successfully removed From your favorite list',
+      'success_remove_from_fav_mod': ' is  successfully removed From your favorite list',
       'failed_add_fav': 'Opp!Error to add this movie to your favorite list',
       'failed_remove_from_fav':
           'Opp!Error to remove this movie from your favorite list',
@@ -36,8 +36,8 @@ class MyAppLocalizations {
       'search_hint': 'recherche',
       'votes': 'votes',
       'success_add_fav': 'ce film a été ajouté avec success',
-      'success_remove_from_fav':
-          'ce film a été supprime de votre list favorie avec success',
+      'success_remove_from_fav': 'ce film a été supprime de votre list favorie avec success',
+      'success_remove_from_fav_mod': 'a été supprimée de votre list favorie avec success',
       'failed_add_fav':
           'Opps! nous ne pouvons pas ajouter votre film au favorite ',
       'failed_remove_from_fav':
@@ -65,8 +65,8 @@ class MyAppLocalizations {
   String get successAddToFav =>
       _localizedValues[locale.languageCode]!['success_add_fav']!;
 
-  String get successRemoveFromFav =>
-      _localizedValues[locale.languageCode]!['success_remove_from_fav']!;
+  String get successRemoveFromFav => _localizedValues[locale.languageCode]!['success_remove_from_fav']!;
+  String get successRemoveFromFavMod => _localizedValues[locale.languageCode]!['success_remove_from_fav_mod']!;
 
   String get failedToAddToFav =>
       _localizedValues[locale.languageCode]!['failed_add_fav']!;

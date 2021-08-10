@@ -6,10 +6,12 @@ import 'package:movie_app/domain/models/movie.dart';
 
 class ItemMovieFav extends StatelessWidget {
   final Movie movie;
+  final Function(Movie movie)? delete;
 
   const ItemMovieFav({
     Key? key,
     required this.movie,
+    this.delete,
   }) : super(key: key);
 
   @override
@@ -47,17 +49,14 @@ class ItemMovieFav extends StatelessWidget {
                         minFontSize: 16,
                         maxLines: 2,
                         style: Theme.of(context).textTheme.headline6!.copyWith(
-                          fontSize: 18,
-                        ),
+                              fontSize: 18,
+                            ),
                       ),
-                      subtitle: AutoSizeText(
-                        movie.releaseDate??""
-                      ),
+                      subtitle: AutoSizeText(movie.releaseDate ?? ""),
                       contentPadding: EdgeInsets.zero,
                       minVerticalPadding: 0,
                       isThreeLine: false,
                     ),
-
                     NoteMovie(
                       note: movie.vote,
                       votes: movie.voteCount,
@@ -67,7 +66,11 @@ class ItemMovieFav extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  if (delete != null) {
+                    await delete!(movie);
+                  }
+                },
                 icon: Icon(Icons.delete),
               )
             ],

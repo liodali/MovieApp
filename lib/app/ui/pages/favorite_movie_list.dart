@@ -25,7 +25,7 @@ class FavoriteMovieList extends StatelessWidget {
 class FavoriteMovieListCore extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final vm = context.read<FavoriteMoviesViewModel>();
+    final vm = useMemoized(() => context.read<FavoriteMoviesViewModel>(), [0]);
     useEffect(() {
       vm.getMovieFavoriteList();
     }, [vm]);
@@ -33,6 +33,7 @@ class FavoriteMovieListCore extends HookWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            pinned: true,
             leading: IconButton(
               onPressed: () => context.pop(),
               icon: Icon(Icons.arrow_back_ios),
