@@ -16,6 +16,9 @@ class MoviesViewModel extends ChangeNotifier {
   IResponse? _moviesResponse;
   List<Movie> _moviesCache = [];
   final  _moviesPublisher = PublishSubject<List<Movie>>();
+
+  late final  _streamMoviesPublisher = _moviesPublisher.stream;
+
   final _lock = Lock();
 
   String get typeMovieSelected => _typeMovieSelected;
@@ -24,16 +27,19 @@ class MoviesViewModel extends ChangeNotifier {
 
   IResponse? get moviesResponse => _moviesResponse;
 
-  Stream<List<Movie>>? get stream => _moviesPublisher.stream;
+  Stream<List<Movie>>? get stream => _streamMoviesPublisher;
 
   MoviesViewModel();
+
+
 
   void setTypeMovieSelected(String newTypesSelected) {
     _typeMovieSelected = newTypesSelected;
     notifyListeners();
   }
 
-  Future<void> initMovies({bool restart = false}) async {
+  Future<void> initMovies() async {
+
     await _lock
         .synchronized(() async =>
     await _fetchMovies(_typeMovieSelected, 1, () {
@@ -46,7 +52,6 @@ class MoviesViewModel extends ChangeNotifier {
       page = 1;
       maxPage = -1;
       _moviesCache.clear();
-      //_moviesPublisher = PublishSubject<List<Movie>>();
     }
     if ((page < maxPage && maxPage != -1) || !_isLoading) {
       _isLoading = true;

@@ -13,6 +13,7 @@ import 'core/common/local_storage_mixin.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
+
   configureInjection();
   await FlutterConfig.loadEnvVariables();
   await Hive.initFlutter();
@@ -21,7 +22,10 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
-      ListenableProvider(create: (ctx) => MoviesViewModel()),
+      ListenableProvider<MoviesViewModel>(
+        create: (ctx) => MoviesViewModel(),
+        dispose: (ctx, moviesViewModel) => moviesViewModel.dispose(),
+      ),
     ],
     child: MyApp(
       router: _rootRouter,

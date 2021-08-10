@@ -6,13 +6,15 @@ import 'loading_widget.dart';
 typedef AppBuilder<T> = Widget Function(T data);
 
 class StreamComponent<T> extends StatelessWidget {
-  final AppBuilder builder;
+  final AppBuilder<T> builder;
   final Widget? errorWidget;
   final Widget? loading;
   final Stream<T> stream;
+  final String? streamKey;
 
   const StreamComponent({
     Key? key,
+    this.streamKey,
     required this.builder,
     this.errorWidget,
     this.loading,
@@ -22,8 +24,8 @@ class StreamComponent<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HookBuilder(builder: (ctx) {
-      final _hook = useMemoized(() => stream, [key]);
-      final snap = useStream(_hook);
+      final _hook = useMemoized(() => stream, [streamKey]);
+      final snap = useStream(_hook, preserveState: true);
       if (snap.connectionState == ConnectionState.waiting) {
         return this.loading ?? LoadingWidget();
       } else if (snap.connectionState == ConnectionState.active ||
