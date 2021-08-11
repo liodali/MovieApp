@@ -49,9 +49,10 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
       useEffect(() {
         if (query != searchVM.query) {
           searchVM.setQuery(query);
-          searchVM.update();
         }
-      }, [query]);
+        searchVM.update();
+
+      });
       return SearchMovieResult();
     });
   }
@@ -62,31 +63,17 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
   }
 }
 
-class SearchMovieResult extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _SearchMovieResultState();
-}
-
-class _SearchMovieResultState extends State<SearchMovieResult> {
-  SearchMovieViewModel? searchVM;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (searchVM == null) {
-      searchVM = context.read<SearchMovieViewModel>();
-      searchVM!.update();
-    }
-  }
-
+class SearchMovieResult extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    if (searchVM!.isQueryEmpty) {
+   final  searchVM = context.read<SearchMovieViewModel>();
+
+    if (searchVM.isQueryEmpty) {
       return SizedBox.shrink();
     }
 
     return StreamComponent<List<Movie>>(
-      stream: searchVM!.stream,
+      stream: searchVM.stream,
       builder: (movies) {
         return ListView.builder(
           itemCount: movies.length,
@@ -120,3 +107,4 @@ class _SearchMovieResultState extends State<SearchMovieResult> {
     );
   }
 }
+
