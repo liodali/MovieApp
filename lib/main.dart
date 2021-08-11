@@ -28,8 +28,8 @@ void main() async {
         create: (ctx) => MoviesViewModel(),
         dispose: (ctx, moviesViewModel) => moviesViewModel.dispose(),
       ),
-      ListenableProvider<TextSearchVM>(
-        create: (ctx) => TextSearchVM(),
+      ListenableProvider<SearchMovieViewModel>(
+        create: (ctx) => SearchMovieViewModel(),
       ),
     ],
     child: MyApp(),
