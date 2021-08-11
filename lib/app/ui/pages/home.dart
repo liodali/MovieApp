@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:movie_app/app/common/app_localization.dart';
+import 'package:movie_app/app/ui/component/search_movie.dart';
 import 'package:movie_app/app/ui/widget/loading_widget.dart';
 import 'package:movie_app/app/ui/widget/search_text_movie.dart';
 import 'package:movie_app/app/ui/widget/tab_movies_types.dart';
@@ -8,7 +9,7 @@ import 'package:movie_app/domain/common/utilities.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/routes.dart';
-import '../../viewmodel/MoviesViewModel.dart';
+import '../../viewmodel/movies_view_model.dart';
 import '../component/list_movies.dart';
 
 class Home extends HookWidget {
@@ -45,7 +46,12 @@ class Home extends HookWidget {
               title: SearchTextMovie(
                 textController: textController,
                 hint: MyAppLocalizations.of(context)!.searchHint,
-                onTap: () {},
+                onTap: () async {
+                  await showSearch(
+                      context: context, delegate: SearchMovieDelegate());
+                  FocusScope.of(context).unfocus();
+                  FocusScope.of(context).requestFocus(FocusNode());
+                },
               ),
               pinned: true,
               floating: false,

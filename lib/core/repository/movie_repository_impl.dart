@@ -94,4 +94,42 @@ class MovieRepositoryImpl
   Future<bool> isMovieFav(int id) async {
     return await isMovieFavorite(id);
   }
+
+  @override
+  Future<IResponse> searchForMovie(
+    String query,
+    int page, {
+    String? region,
+    String? year,
+  }) async {
+    try {
+      var queryEndPoint = {
+        "query": query,
+        "page": page,
+      };
+      if (region != null) {
+        queryEndPoint.addAll({"region": region});
+      }
+      if (year != null) {
+        queryEndPoint.addAll({"year": year});
+      }
+      var response = await get(endpoint: "search/movie", query: queryEndPoint);
+      if (response.statusCode != 200) {
+        return ErrorResponse(error: {
+          "code": response.statusCode,
+          "message": "cannot get data from server"
+        });
+      }
+      final data = response.data as Map<String, dynamic>;
+      return compute(
+        computeParserMoviesJson,
+        {
+          "pages": data["total_pages"],
+          "data": data["results"] as List<dynamic>,
+        },
+      );
+    } catch (e) {
+      return ErrorResponse(error: {"code": 404, "message": e.toString()});
+    }
+  }
 }

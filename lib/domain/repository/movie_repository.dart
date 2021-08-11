@@ -7,6 +7,13 @@ abstract class MovieRepository extends Repository<Movie> {
 
   Future<IResponse> listMovieFavorites();
 
+  Future<IResponse> searchForMovie(
+    String query,
+    int page, {
+    String? region,
+    String? year,
+  });
+
   Future<bool> isMovieFav(int id);
 
   Future<int> addToFavorite(Movie movie);

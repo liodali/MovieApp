@@ -6,12 +6,15 @@ import 'package:movie_app/domain/models/movie.dart';
 
 class ItemMovieFav extends StatelessWidget {
   final Movie movie;
-  final Function(Movie movie)? delete;
+  final Widget Function(Movie) actionMovie;
+
+  //final Function(Movie movie)? delete;
 
   const ItemMovieFav({
     Key? key,
     required this.movie,
-    this.delete,
+    required this.actionMovie,
+    //this.delete,
   }) : super(key: key);
 
   @override
@@ -34,6 +37,11 @@ class ItemMovieFav extends StatelessWidget {
                     url: "w780${movie.poster}",
                     size: Size(84, 128),
                     fit: BoxFit.fill,
+                    errorWidget: Icon(
+                      Icons.movie,
+                      size: 24,
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
               ),
@@ -65,14 +73,7 @@ class ItemMovieFav extends StatelessWidget {
                   ],
                 ),
               ),
-              IconButton(
-                onPressed: () async {
-                  if (delete != null) {
-                    await delete!(movie);
-                  }
-                },
-                icon: Icon(Icons.delete),
-              )
+              actionMovie(movie),
             ],
           ),
         ),

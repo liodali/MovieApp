@@ -3,7 +3,7 @@ import 'package:movie_app/domain/models/movie.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/routes.dart';
-import '../../viewmodel/MoviesViewModel.dart';
+import '../../viewmodel/movies_view_model.dart';
 import '../widget/loading_widget.dart';
 import '../widget/stream_component.dart';
 import 'item_movie.dart';
@@ -37,7 +37,7 @@ class _StateListMovies extends State<ListMovies> {
   @override
   Widget build(BuildContext context) {
     return StreamComponent<List<Movie>>(
-      stream: viewModel!.stream!,
+      stream: viewModel!.stream,
       loading: SliverFillRemaining(
         fillOverscroll: false,
         hasScrollBody: false,

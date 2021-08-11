@@ -17,7 +17,7 @@ class MoviesFavorites extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final movieState = useState(movies);
+    final moviesState = useState(movies);
     ValueNotifier<int?> previousMovie = useState(null);
     ValueNotifier<ScaffoldFeatureController<SnackBar, SnackBarClosedReason>?>
         snackBarController = useState(null);
@@ -28,63 +28,66 @@ class MoviesFavorites extends HookWidget {
     useEffect(() {}, ["stateMovies"]);
     return SliverAnimatedList(
       key: animatedKey,
-      initialItemCount: movieState.value.length,
+      initialItemCount: moviesState.value.length,
       itemBuilder: (ctx, index, animation) {
         return FadeTransition(
           opacity: animation,
           child: ItemMovieFav(
-            delete: (m) {
-              if (snackBarController.value != null) {
-                ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                if (previousMovie.value != null) {
-                  viewModel.removeMovieFromFavoriteList(previousMovie.value!);
-                }
-              }
-              final indexMovie = movieState.value.indexOf(m);
-              Movie? removed = movieState.value.removeAt(indexMovie);
-              animatedKey.currentState!.removeItem(
-                indexMovie,
-                (context, animation) => FadeTransition(
-                  opacity: animation,
-                  child: ItemMovieFav(
-                    movie: removed!,
-                  ),
-                ),
-              );
-              previousMovie.value = removed.id;
-              snackBarController.value =
-                  ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                      "${removed.title} ${MyAppLocalizations.of(context)!.successRemoveFromFavMod}"),
-                  action: SnackBarAction(
-                    onPressed: () {
-                      removed = null;
-                      final index = indexMovie;
-                      previousMovie.value = null;
-                      movieState.value.insert(index, m);
-                      animatedKey.currentState!.insertItem(index);
-                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                    },
-                    label: "UNDO",
-                  ),
-                ),
-              );
+            actionMovie: (movie) {
+              return IconButton(
+                onPressed: () async {
+                  if (snackBarController.value != null) {
+                    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                    if (previousMovie.value != null) {
+                      viewModel
+                          .removeMovieFromFavoriteList(previousMovie.value!);
+                    }
+                  }
+                  final indexMovie = moviesState.value.indexOf(movie);
+                  Movie? removed = moviesState.value.removeAt(indexMovie);
+                  animatedKey.currentState!.removeItem(
+                    indexMovie,
+                    (context, animation) => FadeTransition(
+                      opacity: animation,
+                      child: ItemMovieFav(
+                        movie: removed!,
+                        actionMovie: (_) => SizedBox.shrink(),
+                      ),
+                    ),
+                  );
+                  previousMovie.value = removed.id;
+                  snackBarController.value =
+                      ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                          "${removed.title} ${MyAppLocalizations.of(context)!.successRemoveFromFavMod}"),
+                      action: SnackBarAction(
+                        onPressed: () {
+                          removed = null;
+                          final index = indexMovie;
+                          previousMovie.value = null;
+                          moviesState.value.insert(index, movie);
+                          animatedKey.currentState!.insertItem(index);
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        },
+                        label: "UNDO",
+                      ),
+                    ),
+                  );
 
-              snackBarController.value!.closed.then((value) async {
-                /*
-                previousMovie.value != null &&
-                    snackBarController.value != null &&
-                 */
-                if (removed != null) {
-                  removed = null;
-                  previousMovie.value = null;
-                  snackBarController.value = null;
-                  viewModel.removeMovieFromFavoriteList(m.id);
-                }
-              });
+                  snackBarController.value!.closed.then((value) async {
+                    if (removed != null) {
+                      removed = null;
+                      previousMovie.value = null;
+                      snackBarController.value = null;
+                      viewModel.removeMovieFromFavoriteList(movie.id);
+                    }
+                  });
+                },
+                icon: Icon(Icons.delete),
+              );
             },
-            movie: movieState.value[index],
+            movie: moviesState.value[index],
           ),
         );
       },

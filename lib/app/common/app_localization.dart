@@ -13,7 +13,7 @@ class MyAppLocalizations {
   static Map<String, Map<String, String>> _localizedValues = {
     'en': {
       'title_app': 'Movie TMDB',
-      'fav_movie_title': 'Your Favorite Movies ',
+      'fav_movie_title': 'Favorite Movies ',
       'loading_text': 'Loading ...',
       'error_loading_image': 'Error to Get Image',
       'more_movies': 'more movies ...',
@@ -29,7 +29,7 @@ class MyAppLocalizations {
     },
     'fr': {
       'title_app': 'Movie TMDB',
-      'fav_movie_title': 'vos Films Favories ',
+      'fav_movie_title': 'Favoris Films',
       'loading_text': 'Chargement ...',
       'error_loading_image': 'Impossible de télécharger cet image',
       'more_movies': 'plus de films ...',

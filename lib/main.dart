@@ -4,13 +4,14 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movie_app/app/ui/pages/favorite_movie_list.dart';
-import 'package:movie_app/app/viewmodel/MoviesViewModel.dart';
+import 'package:movie_app/app/viewmodel/movies_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'app/common/app_localization.dart';
 import 'app/common/locator.dart';
 import 'app/common/routes.dart';
 import 'app/ui/pages/home.dart';
+import 'app/viewmodel/search_movie_view_model.dart';
 import 'core/common/local_storage_mixin.dart';
 
 void main() async {
@@ -26,6 +27,9 @@ void main() async {
       ListenableProvider<MoviesViewModel>(
         create: (ctx) => MoviesViewModel(),
         dispose: (ctx, moviesViewModel) => moviesViewModel.dispose(),
+      ),
+      ListenableProvider<TextSearchVM>(
+        create: (ctx) => TextSearchVM(),
       ),
     ],
     child: MyApp(),

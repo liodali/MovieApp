@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:movie_app/app/viewmodel/MoviesViewModel.dart';
+import 'package:movie_app/app/viewmodel/movies_view_model.dart';
 import 'package:provider/provider.dart';
 
 class TabMoviesTypes extends HookWidget {

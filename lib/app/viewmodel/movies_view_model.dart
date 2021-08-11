@@ -26,7 +26,7 @@ class MoviesViewModel extends ChangeNotifier {
 
   IResponse? get moviesResponse => _moviesResponse;
 
-  Stream<List<Movie>>? get stream => _moviesPublisher.stream;
+  Stream<List<Movie>> get stream => _moviesPublisher.stream;
 
   MoviesViewModel();
 

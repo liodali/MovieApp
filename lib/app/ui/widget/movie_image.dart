@@ -7,12 +7,14 @@ class MovieImage extends StatelessWidget {
   final String url;
   final Size? size;
   final BoxFit? fit;
+  final Widget? errorWidget;
 
   const MovieImage({
     Key? key,
     required this.url,
     this.size,
     this.fit,
+    this.errorWidget,
   }) : super(key: key);
 
   @override
@@ -28,9 +30,10 @@ class MovieImage extends StatelessWidget {
       fit: fit,
       errorWidget: (ctx, x, p) {
         return Center(
-          child: Text(
-            MyAppLocalizations.of(context)!.errorLoadImage,
-          ),
+          child: errorWidget ??
+              Text(
+                MyAppLocalizations.of(context)!.errorLoadImage,
+              ),
         );
       },
     );
