@@ -43,7 +43,7 @@ class SearchMovieViewModel extends ChangeNotifier {
 
   void update() {
     // _query = query;
-    if (_isChanged) {
+    if (_isChanged && _query.isNotEmpty) {
       _moviesCache.clear();
       page = 1;
       maxPage = -1;
@@ -51,7 +51,7 @@ class SearchMovieViewModel extends ChangeNotifier {
       _isLoading = true;
       searchForMovie();
       _isLoading = false;
-    } else {
+    } else if (_query.isNotEmpty) {
       Future.delayed(Duration.zero, () async {
         _moviesPublisher.sink.add(_moviesCache);
       });

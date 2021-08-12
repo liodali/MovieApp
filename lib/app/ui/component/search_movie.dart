@@ -51,7 +51,6 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
           searchVM.setQuery(query);
         }
         searchVM.update();
-
       });
       return SearchMovieResult();
     });
@@ -66,7 +65,7 @@ class SearchMovieDelegate extends SearchDelegate<Movie?> {
 class SearchMovieResult extends HookWidget {
   @override
   Widget build(BuildContext context) {
-   final  searchVM = context.read<SearchMovieViewModel>();
+    final searchVM = context.read<SearchMovieViewModel>();
 
     if (searchVM.isQueryEmpty) {
       return SizedBox.shrink();
@@ -92,6 +91,7 @@ class SearchMovieResult extends HookWidget {
                       arguments: movies[index]);
                 },
                 child: ItemMovieFav(
+                  titleSearchToColor: searchVM.query,
                   actionMovie: (movie) => Icon(
                     stateFav.value ? Icons.bookmark : Icons.bookmark_border,
                     color: stateFav.value ? Colors.amber : null,
@@ -107,4 +107,3 @@ class SearchMovieResult extends HookWidget {
     );
   }
 }
-
