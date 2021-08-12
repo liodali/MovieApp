@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MyAppLocalizations {
+
   MyAppLocalizations(this.locale);
 
   final Locale locale;
@@ -25,7 +26,8 @@ class MyAppLocalizations {
       'failed_add_fav': 'Opp!Error to add this movie to your favorite list',
       'failed_remove_from_fav':
           'Opp!Error to remove this movie from your favorite list',
-      'empty_list': 'No Movie Found'
+      'empty_list': 'No Movie Found',
+      'empty_list_fav': 'You don\'t have any favorite movie'
     },
     'fr': {
       'title_app': 'Movie TMDB',
@@ -42,7 +44,8 @@ class MyAppLocalizations {
           'Opps! nous ne pouvons pas ajouter votre film au favorite ',
       'failed_remove_from_fav':
           'Opps! nous ne pouvons pas supprime votre film de la liste favorite ',
-      'empty_list': 'Aucun  film est disponible ',
+      'empty_list': 'Aucun film est disponible ',
+      'empty_list_fav': 'Vous n\'avez aucun film favorie ',
     },
   };
 
@@ -78,6 +81,7 @@ class MyAppLocalizations {
       _localizedValues[locale.languageCode]!['fav_movie_title']!;
 
   String get emptyList => _localizedValues[locale.languageCode]!['empty_list']!;
+  String get emptyListFavorite => _localizedValues[locale.languageCode]!['empty_list_fav']!;
 }
 
 class AppLocalizationsDelegate

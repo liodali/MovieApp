@@ -59,7 +59,12 @@ class FavoriteMovieListCore extends HookWidget {
             mapTo: (response) => (response as MoviesResponse).data,
             builder: (movies) {
               if (movies.isEmpty) {
-                return EmptyList();
+                return SliverFillRemaining(
+                  child: EmptyList(
+                    messageEmptyList:
+                    MyAppLocalizations.of(context)!.emptyListFavorite,
+                  ),
+                );
               }
               return MoviesFavorites(
                 movies: movies,
