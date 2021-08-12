@@ -4,7 +4,7 @@ see last movie and detail about you favori movie
 
 ## Getting Started
 
-<img src="https://github.com/liodali/BIkesShop/blob/main/screenshot/bikesShop.gif?raw=true" alt="Bike catalog app"><br>
+<img src="https://github.com/liodali/MovieApp/blob/main/movies.gif?raw=true" alt="Bike catalog app"><br>
 
 ## Preparation for build 
 * if you want to regenerate apk or rebuild the project
