@@ -27,6 +27,10 @@ class DetailMovieViewModel extends ChangeNotifier {
     _isFav = fav;
     notifyListeners();
   }
+  @visibleForTesting
+  void setDetail(DetailMovie detailMovie){
+    _detailMovie = detailMovie;
+  }
 
   Future<void> getDetailMovie() async {
     final response = await getIt<DetailMovieUseCase>().invoke(_movie.id);
