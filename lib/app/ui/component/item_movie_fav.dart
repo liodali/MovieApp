@@ -44,7 +44,7 @@ List<TextSpan> computeTextColorationSearch(List<dynamic> data) {
 
   String mtitle = movie.title;
   while (mtitle.isNotEmpty) {
-// 5. delete  filters where their are not exist in the title anymore
+    // 5. delete  filters where their are not exist in the title anymore
     searchWords = searchWords
         .where((searchWord) =>
             searchWord.length <= mtitle.length &&

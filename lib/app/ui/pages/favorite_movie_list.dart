@@ -29,49 +29,58 @@ class FavoriteMovieListCore extends HookWidget {
     useEffect(() {
       vm.getMovieFavoriteList();
     }, [vm]);
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            leading: IconButton(
-              onPressed: () => context.pop(),
-              icon: Icon(Icons.arrow_back_ios),
-            ),
-            title: Text(
-              MyAppLocalizations.of(context)!.favMovieTitle,
-            ),
-          ),
-          MyFutureBuilderComponent<List<Movie>>(
-            future: vm.moviesFav,
-            loading: SliverFillRemaining(
-              fillOverscroll: false,
-              hasScrollBody: false,
-              child: LoadingWidget(),
-            ),
-            errorWidget: SliverFillRemaining(
-              fillOverscroll: false,
-              hasScrollBody: false,
-              child: Center(
-                child: Text("Error!"),
+    return WillPopScope(
+      onWillPop: () async {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        return true;
+      },
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              leading: IconButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                  context.pop();
+                },
+                icon: Icon(Icons.arrow_back_ios),
+              ),
+              title: Text(
+                MyAppLocalizations.of(context)!.favMovieTitle,
               ),
             ),
-            mapTo: (response) => (response as MoviesResponse).data,
-            builder: (movies) {
-              if (movies.isEmpty) {
-                return SliverFillRemaining(
-                  child: EmptyList(
-                    messageEmptyList:
-                    MyAppLocalizations.of(context)!.emptyListFavorite,
-                  ),
+            MyFutureBuilderComponent<List<Movie>>(
+              future: vm.moviesFav,
+              loading: SliverFillRemaining(
+                fillOverscroll: false,
+                hasScrollBody: false,
+                child: LoadingWidget(),
+              ),
+              errorWidget: SliverFillRemaining(
+                fillOverscroll: false,
+                hasScrollBody: false,
+                child: Center(
+                  child: Text("Error!"),
+                ),
+              ),
+              mapTo: (response) => (response as MoviesResponse).data,
+              builder: (movies) {
+                if (movies.isEmpty) {
+                  return SliverFillRemaining(
+                    child: EmptyList(
+                      messageEmptyList:
+                          MyAppLocalizations.of(context)!.emptyListFavorite,
+                    ),
+                  );
+                }
+                return MoviesFavorites(
+                  movies: movies,
                 );
-              }
-              return MoviesFavorites(
-                movies: movies,
-              );
-            },
-          )
-        ],
+              },
+            )
+          ],
+        ),
       ),
     );
   }

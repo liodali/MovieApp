@@ -98,7 +98,6 @@ class MoviesFavorites extends HookWidget {
                         ),
                       ),
                     );
-
                     snackBarController.value!.closed.then((value) async {
                       if (removed != null) {
                         removed = null;
