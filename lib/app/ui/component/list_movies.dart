@@ -35,7 +35,7 @@ class ListMovies extends HookWidget {
         ),
       ),
       builder: (movies) {
-        if (movies.isEmpty && viewModel!.isLoading) {
+        if (movies.isEmpty && viewModel.isLoading) {
           return SliverFillRemaining(
             child: LoadingWidget(),
           );

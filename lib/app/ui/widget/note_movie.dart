@@ -23,8 +23,9 @@ class NoteMovie extends StatelessWidget {
         children: [
           Card(
             elevation: elevation,
+            color: Theme.of(context).dividerColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(6),
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(
